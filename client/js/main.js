@@ -1,0 +1,1 @@
+var gr = new Greenery("Hello");
