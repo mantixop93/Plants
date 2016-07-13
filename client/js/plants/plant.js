@@ -27,19 +27,19 @@ function Plant(name, location, period, lastWatering) {
         var now = new Date();
         var next = this.nextWatering();
         var day = 1000 * 3600 * 24;
-        var answer;
+        var answer = "Location: " + this.location + "; Name: "+ this.name + "; Status: ";
         
         if (now < next) {
-            answer = "need to be watered in " + Math.ceil((next - now) / day ) + " day(s)"; 
+            answer += "need to be watered in " + Math.ceil((next - now) / day ) + " day(s)"; 
         } else {
             if (now - next <= day) {
-                answer = "need to be watered today";
+                answer += "need to be watered today";
             } else {
-                answer = Math.ceil((next - now) / day) + " day(s) delay";
+                answer += Math.ceil((next - now) / day) + " day(s) delay";
             }
         }
         
-        return answer;
+        return answer + ";\n";
     }
     
     this.watering(lastWatering);
@@ -55,6 +55,7 @@ Plant.revive = function(obj) {
     
     return restored;
 }
+
 
 function Greenery(name) {
 
@@ -74,13 +75,13 @@ function Greenery(name) {
         return plants;
     }
     
-    this.plants= load(name);
-    
     //TODO: Why var functions inside constractor has global scope?
     
     var save = function(context) {
         this.localStorage.setItem(name, JSON.stringify(context));
     }
+    
+    this.plants = load(name);
     
     //TODO: How to avoid dublication? 
     
@@ -89,15 +90,48 @@ function Greenery(name) {
         save(this);
     }
     
-    this.getStatus = function() {
+    this.removePlant = function(name) {
+        for (var i = 0; i < this.plants.length; i++) {
+            if (this.plants[i].name === name) {
+                this.plants.splice(i, 1);
+            } 
+        }
+        save(this);
+    }
+    
+    this.waterPlant = function(name, date) {
+        for (var i = 0; i < this.plants.length; i++) {
+            if (this.plants[i].name === name) {
+                this.plants[i].watering(date);
+            }
+        }
+    }
+    
+    var getStatus = function(plants) {
         var result = "";
         
-        for (var i = 0; i < this.plants.length; i++) {
-            result += this.plants[i].name + " : " + this.plants[i].getStatus() + ";\n";
+        for (var i = 0; i < plants.length; i++) {
+            result += plants[i].getStatus();
         }
         
         return result;
     }
+    
+    this.getStatusForAllPlants = function() {
+       return getStatus(this.plants);
+    }
+    
+    this.getStatusByLocation = function(location) {
+        var arr = [];
+        
+        for (var i = 0; i < this.plants.length; i++) {
+            if (this.plants[i].location === location) {
+                arr.push(this.plants[i]);
+            }
+        }
+        
+        return getStatus(arr);
+    }
 }
 
-var gr = new Greenery("Greenery");
+var gr = new Greenery("greenery");
