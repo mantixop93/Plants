@@ -1,6 +1,6 @@
 //Creat greenery
 
-var greenery = new Greenery("MyGreenery3");
+var greenery = new Greenery("MyGreenery4");
 
 //Check status - empty string
 
