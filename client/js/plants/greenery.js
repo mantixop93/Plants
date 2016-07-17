@@ -1,26 +1,38 @@
 function Greenery(name) {
 
     this.name = name;
+    this.plants = [];
+    var context = this;
+    var socket = io.connect();
+    
 
-    var load = function(name) {
-        var storedGreenery = this.localStorage.getItem(name);
-        var plants = [];
-
-        if (storedGreenery !== null) {
-            var storedPlants = JSON.parse(storedGreenery).plants;
-            for (var i = 0; i < storedPlants.length; i++) {
-                plants.push(new Plant(storedPlants[i]));
-            }
+    
+    socket.emit('load', name, function(date){
+        for (var i = 0; i < date.plants.length; i++) {
+             context.plants.push(new Plant(date.plants[i]));
         }
+    });
+    
+    // var load = function(name) {
+    //     // var storedGreenery = this.localStorage.getItem(name);
+    //     // var plants = [];
 
-        return plants;
-    }
+    //     // if (storedGreenery !== null) {
+    //     //     var storedPlants = JSON.parse(storedGreenery).plants;
+    //     //     for (var i = 0; i < storedPlants.length; i++) {
+    //     //         plants.push(new Plant(storedPlants[i]));
+    //     //     }
+    //     // }
+
+    //     // return plants;
+    // }
 
     var save = function(context) {
-        this.localStorage.setItem(name, JSON.stringify(context));
+       // this.localStorage.setItem(name, JSON.stringify(context));
+        socket.emit('save', context);
     }
 
-    this.plants = load(name); 
+    this.plants = []; 
 
     this.addPlant = function(config) {
         this.plants.push(new Plant(config));
@@ -40,6 +52,7 @@ function Greenery(name) {
                 this.plants[i].watering(date);
             }
         }
+        save(this)
     }
 
     var getStatus = function(plants) {

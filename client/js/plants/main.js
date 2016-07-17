@@ -1,5 +1,5 @@
-var greenery = new Greenery("p");
+var greenery = new Greenery("plants");
 
 window.onload = function (){
-    refreshTable();
+    setInterval(refreshTable, 200)
 }

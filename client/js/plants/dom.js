@@ -46,6 +46,7 @@ function refreshTable() {
         var btn = document.createElement('button');
         btn.innerHTML = "Water";
         btn.onclick = waterPlant;
+        btn.className = "btn btn-primary btn-xs"
         watering.appendChild(btn);
         row.appendChild(watering);
         
@@ -54,9 +55,25 @@ function refreshTable() {
         var btn = document.createElement('button');
         btn.innerHTML = "Delete";
         btn.onclick = removePlant;
+        btn.className = "btn btn-primary btn-xs"
         dlt.appendChild(btn);
         row.appendChild(dlt);
         
+        var statusStr = plant.getStatus().split(" ");
+        var colorClass;
+
+        switch (statusStr[statusStr.length - 1]) {
+            case 'day(s)':
+                colorClass = "success";
+                break;
+            case 'today':
+                colorClass = 'warning';
+                break;
+            case 'delay':
+                colorClass = 'danger';
+                break;
+        }
+        row.className = colorClass;
         newTable.appendChild(row);
     }
     table.replaceChild(newTable, document.getElementsByTagName('tbody')[0])
