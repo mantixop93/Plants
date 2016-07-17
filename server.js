@@ -19,17 +19,19 @@ var express = require('express');
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
-var greenery = {};
-router.use(express.static(path.resolve(__dirname, 'client')));
+var jsonfile = require('jsonfile');
 
+
+router.use(express.static(path.resolve(__dirname, 'client')));
 
 io.on('connection', function (socket) {
     socket.on('load', function (name, fn) {
-      fn(greenery);
+      var obj = jsonfile.readFileSync(name + '.json');
+      fn(obj);
     });
 
     socket.on('save', function (msg) {
-      greenery = msg;
+      jsonfile.writeFile(msg.name + '.json', msg);
     });
 
   });
