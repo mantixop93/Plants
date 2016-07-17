@@ -9,34 +9,28 @@ function Greenery(name) {
         if (storedGreenery !== null) {
             var storedPlants = JSON.parse(storedGreenery).plants;
             for (var i = 0; i < storedPlants.length; i++) {
-                plants.push(Plant.revive(storedPlants[i]));
+                plants.push(new Plant(storedPlants[i]));
             }
         }
 
         return plants;
     }
 
-    //TODO: Why var functions inside constractor has global scope?
-
     var save = function(context) {
         this.localStorage.setItem(name, JSON.stringify(context));
     }
 
-    this.plants = load(name);
+    this.plants = load(name); 
 
-    //TODO: How to avoid dublication? 
-
-    this.addPlant = function(name, location, period, lastWatering) {
-        this.plants.push(new Plant(name, location, period, lastWatering));
+    this.addPlant = function(config) {
+        this.plants.push(new Plant(config));
         save(this);
     }
 
     this.removePlant = function(name) {
-        for (var i = 0; i < this.plants.length; i++) {
-            if (this.plants[i].name === name) {
-                this.plants.splice(i, 1);
-            }
-        }
+        this.plants = this.plants.filter(function(current) {
+            return current.name !== name
+        });
         save(this);
     }
 
@@ -58,21 +52,7 @@ function Greenery(name) {
         return result;
     }
 
-    this.getStatusForAllPlants = function() {
-        return getStatus(this.plants);
-    }
 
-    this.getStatusByLocation = function(location) {
-        var arr = [];
-
-        for (var i = 0; i < this.plants.length; i++) {
-            if (this.plants[i].location === location) {
-                arr.push(this.plants[i]);
-            }
-        }
-
-        return getStatus(arr);
-    }
 
     this.getPlantHistory = function(name) {
         for (var i = 0; i < this.plants.length; i++) {
@@ -81,6 +61,5 @@ function Greenery(name) {
             }
         }
     }
-
 
 }

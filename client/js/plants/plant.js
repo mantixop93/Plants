@@ -1,7 +1,7 @@
-function Plant(name, location, period, lastWatering) {
-    this.name = name;
-    this.location = location;
-    this.period = period;
+function Plant(config) {
+    this.name = config.name;
+    this.location = config.location;
+    this.period = config.period;
     this.history = [];
     
     this.lastWatering = function() {
@@ -10,11 +10,10 @@ function Plant(name, location, period, lastWatering) {
     
     this.nextWatering = function() {
         var date = new Date(this.lastWatering());
-        date.setDate(date.getDate() + period);
-        return date;
+        return new Date(date.setTime(date.getTime() + this.period * 86400000 ));;
     }
     
-    this.watering = function(date) {
+    this.watering = function (date) {
         var lastWatering = date || new Date(); 
         this.history.push(lastWatering);
     }
@@ -24,33 +23,27 @@ function Plant(name, location, period, lastWatering) {
     */
     
     this.getStatus = function(){
+
         var now = new Date();
         var next = this.nextWatering();
         var day = 1000 * 3600 * 24;
-        var answer = "Location: " + this.location + "; Name: "+ this.name + "; Status: ";
         
         if (now < next) {
-            answer += "need to be watered in " + Math.ceil((next - now) / day ) + " day(s)"; 
+            return "need to be watered in " + Math.ceil((next - now) / day ) + " day(s)"; 
         } else {
             if (now - next <= day) {
-                answer += "need to be watered today";
+                return "need to be watered today";
             } else {
-                answer += Math.ceil((next - now) / day) + " day(s) delay";
+                return Math.abs(Math.ceil((next - now) / day)) + " day(s) delay";
             }
         }
-        
-        return answer + ";\n";
     }
     
-    this.watering(lastWatering);
-}
-
-Plant.revive = function(obj) {
-    var restored = new Plant(obj.name, obj.location, obj.period);
-    
-    for (var i = 0; i < obj.history.length; i++) {
-        restored.watering(new Date(obj.history[i]));
-    }
-    
-    return restored;
+    if (config.history !== undefined) {
+        for (var i = 0; i < config.history.length; i++) {
+            this.watering(new Date(config.history[i]));
+        }
+    } else {
+        this.watering(config.last);
+    } 
 }
