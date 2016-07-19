@@ -1,4 +1,4 @@
-npm run build - build bundel.js using babelify.
+npm run build - build bundle.js using babelify.
 
 npm run dev - run watchify.
 
