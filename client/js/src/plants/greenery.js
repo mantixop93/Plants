@@ -1,82 +1,56 @@
-var Plant = require('./plant.js');
+let Plant = require('./plant.js');
 
-function Greenery(name) {
+module.exports = class {
+    constructor(name) {
+        this.name = name;
+        this.plants = [];
 
-    this.name = name;
-    this.plants = [];
-    var context = this;
-    var socket = io.connect();
-    
+        //TODO: How to avoid
+        this.socket = io.connect();
 
-    
-    socket.emit('load', name, function(date){
-        for (var i = 0; i < date.plants.length; i++) {
-             context.plants.push(new Plant(date.plants[i]));
-        }
-    });
-    
-    // var load = function(name) {
-    //     // var storedGreenery = this.localStorage.getItem(name);
-    //     // var plants = [];
+        //TODO: How to avoid
+        let context = this;
 
-    //     // if (storedGreenery !== null) {
-    //     //     var storedPlants = JSON.parse(storedGreenery).plants;
-    //     //     for (var i = 0; i < storedPlants.length; i++) {
-    //     //         plants.push(new Plant(storedPlants[i]));
-    //     //     }
-    //     // }
-
-    //     // return plants;
-    // }
-
-    var save = function(context) {
-       // this.localStorage.setItem(name, JSON.stringify(context));
-        socket.emit('save', context);
+        this.socket.emit('load', name, function(date){
+            for (let i = 0; i < date.plants.length; i++) {
+                context.plants.push(new Plant(date.plants[i]));
+            }
+        });
     }
 
-    this.plants = []; 
+    _save() {
+        this.socket.emit('save', {
+            name: this.name,
+            plants: this.plants
+        });
+    }
 
-    this.addPlant = function(config) {
+    addPlant(config) {
         this.plants.push(new Plant(config));
-        save(this);
+        this._save();
     }
 
-    this.removePlant = function(name) {
+    removePlant(name) {
         this.plants = this.plants.filter(function(current) {
             return current.name !== name
         });
-        save(this);
+        this._save();
     }
 
-    this.waterPlant = function(name, date) {
-        for (var i = 0; i < this.plants.length; i++) {
+    waterPlant(name, date) {
+        for (let i = 0; i < this.plants.length; i++) {
             if (this.plants[i].name === name) {
                 this.plants[i].watering(date);
             }
         }
-        save(this)
+        this._save()
     }
 
-    var getStatus = function(plants) {
-        var result = "";
-
-        for (var i = 0; i < plants.length; i++) {
-            result += plants[i].getStatus();
-        }
-
-        return result;
-    }
-
-
-
-    this.getPlantHistory = function(name) {
-        for (var i = 0; i < this.plants.length; i++) {
+    getPlantHistory(name) {
+        for (let i = 0; i < this.plants.length; i++) {
             if (this.plants[i].name === name) {
                 return this.plants[i].history;
             }
         }
     }
-
-}
-
-module.exports = Greenery;
+};

@@ -5,6 +5,8 @@
 .Trashes
 Thumbs.db
 
+.idea/
+
 
 node_modules
 
