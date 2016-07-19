@@ -1,3 +1,14 @@
+var Greenery =  require('./greenery.js');
+
+let greenery = new Greenery("plants");
+let [a,b] = [5,6];
+let ds = 56;
+console.log(a);
+
+window.onload = function (){
+    setInterval(refreshTable, 1000)
+}
+
 function addPlant() {
     var plant = {};
     

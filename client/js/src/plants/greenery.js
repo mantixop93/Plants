@@ -1,3 +1,5 @@
+var Plant = require('./plant.js');
+
 function Greenery(name) {
 
     this.name = name;
@@ -76,3 +78,5 @@ function Greenery(name) {
     }
 
 }
+
+module.exports = Greenery;

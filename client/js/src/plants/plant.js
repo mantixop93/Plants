@@ -47,3 +47,5 @@ function Plant(config) {
         this.watering(config.last);
     } 
 }
+
+module.exports = Plant;

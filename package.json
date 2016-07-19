@@ -10,5 +10,22 @@
     "express": "~3.2.4",
     "jsonfile": "^2.3.1",
     "socket.io": "~0.9.14"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "budo": "^8.3.0",
+    "watchify": "^3.7.0"
+  },
+  "scripts": {
+    "build": "babel client/js/src -d client/js/lib",
+    "browserify": "browserify client/js/lib/plants/main.js -o client/js/bundle.js",
+    "babelify": "browserify client/js/src/plants/main.js -o client/js/bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "watchify": "watchify client/js/src/plants/main.js -o client/js/bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "server" : "PORT=8080 node server.js"
   }
 }
