@@ -1,0 +1,12 @@
+<div class="panel panel-primary" ng-repeat="item in $listCtrl.plants track by $index" >
+    <div class="panel-heading">
+        <h3 class="panel-title">{{item.name}}</h3>
+    </div>
+    <div class="panel-body">
+        Location: {{item.location}}<br>
+        Period: {{item.period}}<br>
+        Status: {{$listCtrl.getPlantStatus(item.name)}}<br> <br>
+        <div class="btn btn-primary btn-xs" ng-click="$listCtrl.waterPlant(item.name)">Water</div>
+        <div class="btn btn-primary btn-xs" ng-click="$listCtrl.removePlant(item.name)">Delete</div>
+    </div>
+</div>
