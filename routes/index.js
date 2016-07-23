@@ -3,10 +3,10 @@ var userRouter = require('./user.js');
 
 var router = express.Router();
 
-router.use('/user', userRouter);
-
 router.get('/', function(req, res) {
     res.send('index');
 });
+
+router.use('/user', userRouter);
 
 module.exports = router;
