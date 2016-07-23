@@ -1,41 +1,25 @@
-//
-// # SimpleServer
-//
-// A simple chat server using Socket.IO, Express, and Async.
-//
-var http = require('http');
-var path = require('path');
-
-var async = require('async');
-var socketio = require('socket.io');
 var express = require('express');
-
+var mongoose = require('mongoose');
 //
-// ## SimpleServer `SimpleServer(obj)`
-//
-// Creates a new instance of SimpleServer with the following options:
-//  * `port` - The HTTP port to listen on. If `process.env.PORT` is set, _it overrides this value_.
-//
-var router = express();
-var server = http.createServer(router);
-var io = socketio.listen(server);
-var jsonfile = require('jsonfile');
+var routes = require('./routes/index');
+//var plants = require('./routes/plants');
 
-
-router.use(express.static(path.resolve(__dirname, 'client')));
-
-io.on('connection', function (socket) {
-    socket.on('load', function (name, fn) {
-      var obj = jsonfile.readFileSync(name + '.json');
-      fn(obj);
-    });
-
-    socket.on('save', function (msg) {
-      jsonfile.writeFile(msg.name + '.json', msg);
-    });
-
-  });
-
-server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
-  var addr = server.address();
+mongoose.connect('mongodb://localhost/greenery', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
 });
+
+var app = express();
+
+app.use('/',routes);
+//app.use('/plants', plants);
+
+app.listen(8080, function () {
+    console.log('Example app listening on port 8080!');
+});
+
+module.exports = app;
+
