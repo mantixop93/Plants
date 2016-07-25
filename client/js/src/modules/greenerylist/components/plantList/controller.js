@@ -1,60 +1,56 @@
 export default class {
     constructor($scope) {
+        $scope.name = this.greenery.name;
+        $scope.greenery = this.greenery;
+        $scope.plants = this.greenery.plants;
 
-    }
+        $scope.deletePlant = function (plantName) {
+            $scope.$emit('deletePlant', {
+                greenery: $scope.name,
+                plant: plantName
+            });
+        }
 
-    getPlant(name) {
-        for (let i = 0; i < this.plants.length; i++) {
-            if (this.plants[i].name === name) {
-                return this.plants[i];
+        $scope.waterPlant = function (plantName) {
+            $scope.$emit('waterPlant', {
+                greenery: $scope.name,
+                plant: plantName,
+                date: new Date
+            });
+        }
+
+        $scope.getPlantStatus = function (plant) {
+            let prev = new Date();
+            let date = new Date(plant.history[plant.history.length - 1]);
+            let next = new Date(date.setTime(date.getTime() + plant.period * 86400000));
+            let day = 1000 * 3600 * 24;
+
+            if (prev < next) {
+                return Math.ceil((next - prev) / day);
+            } else {
+                if (prev - next <= day) {
+                    return 0;
+                } else {
+                    return Math.ceil((next - prev) / day);
+                }
             }
         }
-    }
 
-    getPlantPeriod(name){
-        return this.getPlant(name).period;
-    }
-
-
-    removePlant(name) {
-        this.plants = this.plants.filter(function (current) {
-            return current.name !== name
-        });
-    }
-
-    plantsLastWatering(name) {
-        let plant = this.getPlant(name);
-        return plant.history[plant.history.length - 1];
-    }
-
-    nextWateringForPlant(name) {
-        let date = new Date(this.plantsLastWatering(name));
-        return new Date(date.setTime(date.getTime() + this.getPlantPeriod(name) * 86400000));
-    }
-
-    waterPlant(name, date) {
-        let plant = this.getPlant(name);
-        let lastWatering = date || new Date();
-        plant.history.push(lastWatering);
-    }
-
-    getPlantHistory(name) {
-        return this.getPlant(name).history;
-    }
-
-    getPlantStatus(name) {
-        let prev = new Date();
-        let next = this.nextWateringForPlant(name);
-        let day = 1000 * 3600 * 24;
-
-        if (prev < next) {
-            return Math.ceil((next - prev) / day);
-        } else {
-            if (prev - next <= day) {
-                return 0;
+        $scope.getPanelClass = function(plant) {
+            let status = $scope.getPlantStatus(plant);
+            if (status < 0) {
+                return "panel-danger";
+            } else if (status == 0) {
+                return "panel-warning";
             } else {
-                return Math.ceil((next - prev) / day);
+                return "panel-success"
             }
+        }
+
+        $scope.deleteGreenery = function() {
+            $scope.$emit('deleteGreenery', {
+                greenery: $scope.name,
+            });
         }
     }
 }

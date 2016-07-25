@@ -18,4 +18,4 @@ var GreenerySchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('greenaries', GreenerySchema);
+module.exports = mongoose.model('greeneries', GreenerySchema);

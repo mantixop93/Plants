@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="js/bundle.js"></script>
 </head>
 <body ng-app='greenery'>
@@ -25,7 +24,8 @@
     </div>
 </div>
 
-<div class="container" ng-controller='GreeneryController as gc'>d
+<div class="container" ng-controller='GreeneryController as gc'>
+
     <br>
     <div class="page-header" id="banner">
         <div class="row">
@@ -36,14 +36,16 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <add-plant plants="plants"> </add-plant>
-            </div>
             <div class="col-lg-8 col-md-8 col-sm-8">
-                <plant-list plants="plants"></plant-list>
+                <greenery-list greeneries="greeneries"></greenery-list>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <br>
+                <add-plant greeneries="greeneries"> </add-plant>
+                <br>
+                <add-greenery></add-greenery>
             </div>
         </div>
     </div>
-    {{gc.plants}}
 </body>
 </html>

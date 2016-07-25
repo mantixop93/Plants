@@ -4,7 +4,6 @@ export default function ($http){
 
     dataFactory.getPlants = function (user, greenery) {
         console.log("getPlants");
-
     };
 
     dataFactory.addPlant = function (user, greenery, plant) {
@@ -12,20 +11,21 @@ export default function ($http){
         console.log(plant);
     };
 
-    dataFactory.insertCustomer = function (cust) {
-        return $http.post(urlBase, cust);
+    dataFactory.waterPlant = function (user, greenery, plant) {
+
     };
 
-    dataFactory.updateCustomer = function (cust) {
-        return $http.put(urlBase + '/' + cust.ID, cust)
+    dataFactory.deletePlant = function (user, greenery, plant) {
+        console.log(plant)
     };
 
-    dataFactory.deleteCustomer = function (id) {
-        return $http.delete(urlBase + '/' + id);
+    dataFactory.addGreenery = function (user, greenery) {
+        //return $http.delete(urlBase + '/' + id);
     };
 
-    dataFactory.getOrders = function (id) {
-        return $http.get(urlBase + '/' + id + '/orders');
+    dataFactory.deleteGreenery = function (user, greenery) {
+
+        //return $http.get(urlBase + '/' + id + '/orders');
     };
 
     return dataFactory;

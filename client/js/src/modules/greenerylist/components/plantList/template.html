@@ -1,12 +1,15 @@
-<div class="panel panel-primary" ng-repeat="item in $listCtrl.plants track by $index" >
-    <div class="panel-heading">
-        <h3 class="panel-title">{{item.name}}</h3>
+<h1>{{greenery.name | uppercase}}</h1>
+<div class="jumbotron">
+    <div class="panel {{getPanelClass(item)}}" ng-repeat="item in plants">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{item.name}}</h3>
+        </div>
+        <div class="panel-body">
+            Period: {{item.period}}<br>
+            Status: {{getPlantStatus(item)}}<br> <br>
+            <div class="btn btn-primary btn-xs" ng-click="waterPlant(item.name)">Water</div>
+            <div class="btn btn-primary btn-xs" ng-click="deletePlant(item.name)">Delete</div>
+        </div>
     </div>
-    <div class="panel-body">
-        Location: {{item.location}}<br>
-        Period: {{item.period}}<br>
-        Status: {{$listCtrl.getPlantStatus(item.name)}}<br> <br>
-        <div class="btn btn-primary btn-xs" ng-click="$listCtrl.waterPlant(item.name)">Water</div>
-        <div class="btn btn-primary btn-xs" ng-click="$listCtrl.removePlant(item.name)">Delete</div>
-    </div>
+    <div  ng-click="deleteGreenery()" class="btn btn-primary">Delete greenery</div>
 </div>
