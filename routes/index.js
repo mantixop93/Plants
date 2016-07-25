@@ -1,12 +1,8 @@
 var express = require('express');
-var userRouter = require('./user.js');
-
 var router = express.Router();
+var greeneryRouter = require('./greenery.js');
+var Greenery = require('../model/Greenery.js');
 
-router.get('/', function(req, res) {
-    res.send('index');
-});
-
-router.use('/user', userRouter);
+router.use('/user/:user/greenery', greeneryRouter);
 
 module.exports = router;

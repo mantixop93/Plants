@@ -4,17 +4,17 @@ export default class {
         $scope.greenery = this.greenery;
         $scope.plants = this.greenery.plants;
 
-        $scope.deletePlant = function (plantName) {
+        $scope.deletePlant = function (plantId) {
             $scope.$emit('deletePlant', {
-                greenery: $scope.name,
-                plant: plantName
+                greeneryId: $scope.greenery._id,
+                plantId: plantId
             });
         }
 
-        $scope.waterPlant = function (plantName) {
+        $scope.waterPlant = function (plantId) {
             $scope.$emit('waterPlant', {
-                greenery: $scope.name,
-                plant: plantName,
+                greeneryId: $scope.greenery._id,
+                plantId: plantId,
                 date: new Date
             });
         }
@@ -49,7 +49,7 @@ export default class {
 
         $scope.deleteGreenery = function() {
             $scope.$emit('deleteGreenery', {
-                greenery: $scope.name,
+                _id: $scope.greenery._id,
             });
         }
     }

@@ -7,8 +7,8 @@
         <div class="panel-body">
             Period: {{item.period}}<br>
             Status: {{getPlantStatus(item)}}<br> <br>
-            <div class="btn btn-primary btn-xs" ng-click="waterPlant(item.name)">Water</div>
-            <div class="btn btn-primary btn-xs" ng-click="deletePlant(item.name)">Delete</div>
+            <div class="btn btn-primary btn-xs" ng-click="waterPlant(item._id)">Water</div>
+            <div class="btn btn-primary btn-xs" ng-click="deletePlant(item._id)">Delete</div>
         </div>
     </div>
     <div  ng-click="deleteGreenery()" class="btn btn-primary">Delete greenery</div>

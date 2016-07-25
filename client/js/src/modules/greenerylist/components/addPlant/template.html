@@ -12,7 +12,7 @@
             <label for="inputGreenery" class="col-lg-3 control-label">Greenery</label>
             <div class="col-lg-9">
                 <select class="form-control" id="inputGreenery" ng-model="greenery" required>
-                    <option ng-repeat="option in greeneries" value="{{option.name}}">{{option.name | uppercase}}</option>
+                    <option ng-repeat="option in greeneries" value="{{option._id}}">{{option.name | uppercase}}</option>
                 </select>
             </div>
         </div>

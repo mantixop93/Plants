@@ -2,8 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
-var path    = require("path");
-//var plants = require('./routes/plants');
 
 mongoose.connect('mongodb://localhost/greenery', function(err) {
     if(err) {
@@ -14,14 +12,13 @@ mongoose.connect('mongodb://localhost/greenery', function(err) {
 });
 
 var app = express();
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.use('/api',routes);
-
 app.use(express.static(__dirname + '/client'));
-//app.use('/plants', plants);
 
 app.listen(8080, function () {
     console.log('Example app listening on port 8080!');

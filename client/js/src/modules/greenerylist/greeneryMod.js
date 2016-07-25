@@ -18,5 +18,4 @@ app.component('addGreenery', AddGreeneryComponent);
 
 app.run(['$http','$rootScope','dataProvider', function($http, $rootScope, dataProvider) {
     $rootScope.dataProvider = dataProvider;
-    $rootScope.dataProvider.getPlants();
 }])

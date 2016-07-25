@@ -3,20 +3,27 @@ export default class {
         $scope.name = 'vazon';
         $scope.period = 3;
         $scope.last = new Date;
-
-        $scope.greenery = 'default';
         $scope.greeneries = this.greeneries;
-        this.submitHendler = function () {
-            let plant = {
-                name: $scope.name,
-                period: $scope.period,
-                history: [$scope.last]
-            }
 
-            $scope.$emit('addPlant', {
-                greenery : $scope.greenery,
-                plant: plant
-            });
+
+        this.submitHendler = function () {
+            console.log($scope.greenery);
+            if ($scope.greenery != undefined) {
+                let plant = {
+                    name: $scope.name,
+                    period: $scope.period,
+                    history: [$scope.last]
+                }
+
+                $scope.error = "";
+
+                $scope.$emit('addPlant', {
+                    greeneryId: $scope.greenery,
+                    plant: plant
+                });
+            } else {
+                $scope.error = "Select greenery"
+            }
         }
     }
 }

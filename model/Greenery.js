@@ -4,16 +4,13 @@
 var mongoose = require('mongoose');
 
 var GreenerySchema = new mongoose.Schema({
-    user: String,
-    greeneries: [{
+        user: String,
         name: String,
         plants: [{
             name: String,
-            location: String,
             period: Number,
             history: [Date]
         }]
-    }]
 })
 
 
