@@ -6,5 +6,5 @@ export default {
     bindings: {
         plants : '=plants'
     },
-    templateUrl: '/js/src/plants/components/plantList/template.html'
+    templateUrl: '/js/src/modules/greeneryList/components/plantList/template.html'
 }

@@ -1,4 +1,7 @@
 export default class {
+    constructor($scope) {
+
+    }
 
     getPlant(name) {
         for (let i = 0; i < this.plants.length; i++) {
