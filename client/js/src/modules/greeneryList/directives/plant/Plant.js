@@ -17,7 +17,6 @@ export default function (plantService) {
                     date: new Date
                 });
             };
-
         },
         scope: {
             plant: '=plant',

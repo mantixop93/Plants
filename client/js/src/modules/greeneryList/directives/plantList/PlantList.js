@@ -6,7 +6,7 @@ export default function (plantService) {
 
             $scope.deleteGreenery = function () {
                 $scope.$emit('deleteGreenery', {
-                    _id: $scope.greenery._id,
+                    _id: $scope.greenery._id
                 });
             };
         },

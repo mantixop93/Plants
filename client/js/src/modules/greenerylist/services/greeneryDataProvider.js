@@ -1,6 +1,6 @@
-export default function ($http){
+export default function ($http) {
 
-    let urlBase = "http://localhost:8080/api"
+    let urlBase = "http://localhost:8080/api";
 
     var dataFactory = {};
 
@@ -31,5 +31,5 @@ export default function ($http){
         $http.post(urlBase + '/user/' + user + '/greenery/' + greenery + '/plant/' + plant + '/history', {date: date}).then(callback);
     };
 
-    return dataFactory;dd
+    return dataFactory;
 }

@@ -1,69 +1,41 @@
 export default class {
-    constructor($scope) {
+    constructor($scope,dataProvider, greeneryService) {
         $scope.user = "defaultUser";
-        $scope.greeneries = [];
+        $scope.greeneries = greeneryService.greeneries;
 
-        $scope.dataProvider.getGreeneries($scope.user, function (response) {
-            response.data.forEach(function(current) {
-                $scope.greeneries.push(current);
+        dataProvider.getGreeneries($scope.user, function (response) {
+            response.data.forEach(function (current) {
+                greeneryService.addGreenery(current);
             });
         });
 
-
         $scope.$on("addGreenery", function (event, data) {
-            $scope.dataProvider.addGreenery($scope.user, data.greenery, function(response) {
-                $scope.greeneries.push(response.data);
+           dataProvider.addGreenery($scope.user, data.greenery, function (response) {
+                greeneryService.addGreenery(response.data);
             });
         });
 
         $scope.$on("deleteGreenery", function (event, data) {
-            $scope.dataProvider.deleteGreenery($scope.user, data._id, function(response) {
-                for (let j = 0; j < $scope.greeneries.length; j++) {
-                    if ($scope.greeneries[j]._id == data._id) {
-                        $scope.greeneries.splice(j, 1);
-                    }
-                }
+            dataProvider.deleteGreenery($scope.user, data._id, function () {
+                greeneryService.removeGreenery(data._id);
             });
         });
 
         $scope.$on("addPlant", function (event, data) {
-            $scope.dataProvider.addPlant($scope.user, data.greeneryId, data.plant, function(response) {
-                for(let i = 0; i < $scope.greeneries.length; i++) {
-                    if ($scope.greeneries[i]._id == response.data._id) {
-                        $scope.greeneries[i] = response.data;
-                    }
-                }
+            dataProvider.addPlant($scope.user, data.greeneryId, data.plant, function (response) {
+                greeneryService.updateGreenery(response.data);
             });
         });
 
         $scope.$on("deletePlant", function (event, data) {
-            $scope.dataProvider.deletePlant($scope.user, data.greeneryId, data.plantId, function(response) {
-                for(let i = 0; i < $scope.greeneries.length; i++) {
-                    if ($scope.greeneries[i]._id == data.greeneryId) {
-                        let plants = $scope.greeneries[i].plants;
-                        for (let j = 0; j < plants.length; j++) {
-                            if (plants[j]._id == data.plantId) {
-                                plants.splice(j, 1);
-                            }
-                        }
-                    }
-                }
+            dataProvider.deletePlant($scope.user, data.greeneryId, data.plantId, function () {
+                greeneryService.removePlant(data.greeneryId, data.plantId);
             });
         });
 
-
-        $scope.$on("waterPlant", function(event, data) {
-            $scope.dataProvider.waterPlant($scope.user, data.greeneryId, data.plantId, data.date, function(response) {
-                for(let i = 0; i < $scope.greeneries.length; i++) {
-                    if ($scope.greeneries[i]._id == data.greeneryId) {
-                        let plants = $scope.greeneries[i].plants;
-                        for (let j = 0; j < plants.length; j++) {
-                            if (plants[j]._id == data.plantId) {
-                                plants[j].history.push(new Date(response.data));
-                            }
-                        }
-                    }
-                }
+        $scope.$on("waterPlant", function (event, data) {
+            dataProvider.waterPlant($scope.user, data.greeneryId, data.plantId, data.date, function (response) {
+                greeneryService.waterPlant(data.greeneryId, data.plantId, response.data);
             });
         });
     }

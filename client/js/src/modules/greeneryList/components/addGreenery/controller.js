@@ -4,7 +4,7 @@ export default class {
 
         $scope.submitHendler = function () {
             $scope.$emit('addGreenery', {
-                greenery : $scope.name,
+                greenery: $scope.name
             });
         }
     }

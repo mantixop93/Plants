@@ -5,15 +5,13 @@ export default class {
         $scope.last = new Date;
         $scope.greeneries = this.greeneries;
 
-
         this.submitHendler = function () {
-            console.log($scope.greenery);
             if ($scope.greenery != undefined) {
                 let plant = {
                     name: $scope.name,
                     period: $scope.period,
                     history: [$scope.last]
-                }
+                };
 
                 $scope.error = "";
 
