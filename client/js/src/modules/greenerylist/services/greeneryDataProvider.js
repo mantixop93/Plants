@@ -31,5 +31,5 @@ export default function ($http){
         $http.post(urlBase + '/user/' + user + '/greenery/' + greenery + '/plant/' + plant + '/history', {date: date}).then(callback);
     };
 
-    return dataFactory;
+    return dataFactory;dd
 }

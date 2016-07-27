@@ -1,14 +1,14 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'db' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
 2 info using npm@2.14.12
 3 info using node@v4.3.1
-4 verbose run-script [ 'predb', 'db', 'postdb' ]
-5 info predb chat-example@0.0.0
-6 info db chat-example@0.0.0
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info prestart chat-example@0.0.0
+6 info start chat-example@0.0.0
 7 verbose unsafe-perm in lifecycle true
-8 info chat-example@0.0.0 Failed to exec db script
-9 verbose stack Error: chat-example@0.0.0 db: `mongod`
-9 verbose stack Exit status 48
+8 info chat-example@0.0.0 Failed to exec start script
+9 verbose stack Error: chat-example@0.0.0 start: `node server.js`
+9 verbose stack Exit status 1
 9 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:214:16)
 9 verbose stack     at emitTwo (events.js:87:13)
 9 verbose stack     at EventEmitter.emit (events.js:172:7)
@@ -20,17 +20,17 @@
 10 verbose pkgid chat-example@0.0.0
 11 verbose cwd /Users/Mantixop/Desktop/EPAM/Plants
 12 error Darwin 15.5.0
-13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "db"
+13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 14 error node v4.3.1
 15 error npm  v2.14.12
 16 error code ELIFECYCLE
-17 error chat-example@0.0.0 db: `mongod`
-17 error Exit status 48
-18 error Failed at the chat-example@0.0.0 db script 'mongod'.
+17 error chat-example@0.0.0 start: `node server.js`
+17 error Exit status 1
+18 error Failed at the chat-example@0.0.0 start script 'node server.js'.
 18 error This is most likely a problem with the chat-example package,
 18 error not with npm itself.
 18 error Tell the author that this fails on your system:
-18 error     mongod
+18 error     node server.js
 18 error You can get their info via:
 18 error     npm owner ls chat-example
 18 error There is likely additional logging output above.
