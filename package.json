@@ -6,6 +6,7 @@
   "repository": "",
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
+    "angular-translate": "^2.11.1",
     "async": "~0.2.8",
     "express": "~3.2.4",
     "jsonfile": "^2.3.1",
@@ -27,7 +28,7 @@
   "scripts": {
     "build": "browserify client/js/src/index.js -o client/js/bundle.js -t [ babelify --presets [ es2015 react ] ]",
     "dev": "watchify client/js/src/index.js -o client/js/bundle.js -t [ babelify --presets [ es2015 react ] ]",
-    "server" : "PORT=8080 node server.js",
+    "server": "PORT=8080 node server.js",
     "db": "mongod"
   }
 }

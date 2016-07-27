@@ -1,6 +1,8 @@
 export default class {
-    constructor($scope,dataProvider, greeneryService) {
+    constructor($scope, dataProvider, greeneryService, $translate) {
+
         $scope.user = "defaultUser";
+
         $scope.greeneries = greeneryService.greeneries;
 
         dataProvider.getGreeneries($scope.user, function (response) {
@@ -38,5 +40,9 @@ export default class {
                 greeneryService.waterPlant(data.greeneryId, data.plantId, response.data);
             });
         });
+
+        $scope.changeLang = function(lang){
+            $translate.use(lang);
+        }
     }
 }
